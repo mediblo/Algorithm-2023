@@ -3,8 +3,8 @@
 ## 1. <문제 정의>
 - **문제이름**: 가장 큰 숫자 찾기
 - **문제설명**: 주어진 숫자 (정수) 카드 목록 중 가장 큰 숫자 카드를 찾는다.
-- **문제예시** : 다음 그림과 같은 카드 목록 중 가장 큰 숫자는 90이다.  
-![photo](https://1.bp.blogspot.com/-QMiAZRjHwvs/WWcOoEyVZ-I/AAAAAAABFig/0CCtYP2FD6kMVOYzksciAvQJedKKpn-dQCLcBGAs/s800/cardgame_card_dasu.png)
+- **문제예시** : 다음 그림과 같은 카드 목록 중 가장 큰 숫자는 10이다.  
+![photo](https://1.bp.blogspot.com/-YWPrnvvibVs/WQBAGEyzd2I/AAAAAAABD-g/6YXIUPRRJnctD-NjPzA8_Pf5z7bRLx6NgCLcB/s800/card_spade_07.png)
 
 
 
