@@ -75,5 +75,5 @@ void TC2() {
 ```
 
 ## <코드 저장소 링크>
-정용진 : http://github.com/hansabme235/Algorith23/chap1/findMax/  
-이동희 : http://github.com/manyxstisma22/Algorith23/chap1/findMax/
+정용진 : https://github.com/mediblo/Algorithm-2023/tree/master/Homework/1%EC%9E%A5/find_big_number
+이동희 : 몰?루
