@@ -24,7 +24,7 @@ int search_K(int A[], int K, int a, int b) {
         return search_K(A, K, a, b - ((b - a) / 2));
 }
 
-// 테스트 케이스 2
+// 테스트 케이스 1
 void TC1() {
     int A[10] = { 0 };
     for (int i = 0; i < 10; i++)

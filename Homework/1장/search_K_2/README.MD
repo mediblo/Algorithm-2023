@@ -30,7 +30,7 @@
 - **프로토타입** : int search_K(int A[], int a, int b, int K)
 
 3. **테스트 케이스 설계**
-TC1. 임의의 숫자로 구성된 정수 배열을 선언하고, 위 함수를 호출하여 K값을 반환 받아 출력한다.
+TC1. 임의의 숫자로 구성된 정수 배열을 선언하고, 위 함수를 호출하여 K값을 반환 받아 출력한다.  
 TC2. 임의의 개수로 된 정수 배열을 선언하고 TC1과 동일하게 테스트한다.
 
 ## <C코드 구현 결과>
@@ -54,45 +54,51 @@ int search_K(int A[], int K, int a, int b) {
     else
         return search_K(A, K, a, b - ((b - a) / 2));
 }
-// 테스트 케이스 2
+// 테스트 케이스 1
 void TC1() {
     int A[10] = { 0 };
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++)
         A[i] = rand() % 100 + 1;
-        printf("%d ", A[i]);
-    }
+
     int dump = 0;
-    for(int i=0; i< 9; i++)
-        for(int j=i+1; j<10; j++) {
-            if( A[i] > A[j]){
+    for (int i = 0; i < 9; i++)
+        for (int j = i + 1; j < 10; j++) {
+            if (A[i] > A[j]) {
                 dump = A[i];
                 A[i] = A[j];
                 A[j] = dump;
             }
         }
+    for(int i=0; i< 10; i++)
+        printf("%d ", A[i]);
+
     printf("\nTest Case No.1 : K is %d\n", search_K(A, A[rand() % 10], 0, 10));
+
 }
+
 // 테스트 케이스 2
 void TC2() {
     int A[20] = { 0 };
-    for (int i = 0; i < 20; i++) {
+    for (int i = 0; i < 20; i++)
         A[i] = rand() % 100 + 1;
-        printf("%d ", A[i]);
-    }
+
     int dump = 0;
-    for(int i=0; i< 19; i++)
-        for(int j=i+1; j<20; j++) {
-            if( A[i] > A[j]){
+    for (int i = 0; i < 19; i++)
+        for (int j = i + 1; j < 20; j++) {
+            if (A[i] > A[j]) {
                 dump = A[i];
                 A[i] = A[j];
                 A[j] = dump;
             }
         }
+
+    for (int i = 0; i < 20; i++)
+        printf("%d ", A[i]);
+
     printf("\nTest Case No.2 : K is %d\n", search_K(A, A[rand() % 20], 0, 20));
 }
-
 ```
 
 ## <코드 저장소 링크>
-정용진 : https://github.com/mediblo/Algorithm-2023/tree/master/Homework/1%EC%9E%A5/find_big_number  
+정용진 : https://github.com/mediblo/Algorithm-2023/tree/master/Homework/1%EC%9E%A5/search_K_2
 이동희 : 몰?루

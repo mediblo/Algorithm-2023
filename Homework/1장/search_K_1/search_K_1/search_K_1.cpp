@@ -1,6 +1,4 @@
-﻿// 랜덤한 임의 숫자 찾기
-
-#include <stdio.h>
+﻿#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
