@@ -146,57 +146,57 @@ int change(int money, struct change_coin *cc) {
 */
 // 임의 숫자 찾기 ( 해결 )
 /*
-int A[10] = { 0 };
-
-int rand_A();
-int searchK(int K);
+int search_K(int A[], int cnt, int K);
+void TC1();
+void TC2();
 
 int main() {
     srand(time(NULL));
 
-    int ret = -2;
-    int K = rand_A();
-
-    printf("\n%d\n", K);
-    
-    ret = searchK(K);
-
-    if ( ret == K)
-        printf("FOund! it's %d!!", K);
-    else if ( ret == -2)
-        printf("ErroR!!");
-    else
+    TC1();
+    TC2();
         
     return 0;
 }
 
-int rand_A() {
-    for (int i = 0; i < 10; i++) {
-        A[i] = rand() % 100 + 1;
-        printf("%d ", A[i]);
-    }
-
-    return A[ rand() % 10 ];
-}
-
-
-// Funtion : find K from array A[]
-//  return :
-//      -1 : if K is not found
-//       K : if K is found
-int searchK(int K) {
+// K 찾기
+int search_K(int A[], int cnt, int K) {
     int ret = 0;
 
-    // 2. K값 순차적 찾기
-    for (int i = 1; i < 10; i++)
+    for (int i = 1; i < cnt; i++)
         if (A[i] == K){
             ret = i;
             break;
         }
     return A[ret];
 }
+
+// 테스트 케이스 1
+void TC1() {
+    int A[10] = { 0 };
+    for (int i = 0; i < 10; i++) {
+        A[i] = rand() % 100 + 1;
+        printf("%d ", A[i]);
+    }
+
+    printf("\nTest Case No.1 : K is %d\n", search_K(A, 10, A[rand() % 10]));
+
+}
+
+// 테스트 케이스 2
+void TC2() {
+    int A[20] = { 0 };
+    for (int i = 0; i < 20; i++) {
+        A[i] = rand() % 100 + 1;
+        printf("%d ", A[i]);
+    }
+
+    printf("\nTest Case No.2 : K is %d\n", search_K(A, 20, A[rand() % 20]));
+
+}
 */
 // 최대 숫자 찾기 ( 해결 )
+/*
 int searchBig(int A[], int cnt);
 void TC1();
 void TC2();
@@ -215,7 +215,7 @@ int searchBig(int A[], int cnt) {
 
     // 2. 두 번째 카드부터 읽어서 변수 max의 카드보다 크면 그 카드 순서를 max에 저장
     // 3. 모든 카드를 읽을 때 까지 2번째 행동 반복
-    for (int i = 1; i < 10; i++)
+    for (int i = 1; i < cnt; i++)
         if (A[max] < A[i]) 
             max = i;
 
@@ -228,7 +228,7 @@ void TC1() {
     for (int i = 1; i < 10; i++)
         A[i] = rand() % 100 + 1;
 
-    printf("Test Case No.1 : big number is %d\b", searchBig(A, 10));
+    printf("Test Case No.1 : big number is %d\n", searchBig(A, 10));
 
 }
 
@@ -238,6 +238,7 @@ void TC2() {
     for (int i = 1; i < 20; i++)
         A[i] = rand() % 100 + 1;
 
-    printf("Test Case No.2 : big number is %d\b", searchBig(A, 20));
+    printf("Test Case No.2 : big number is %d\n", searchBig(A, 20));
 
 }
+*/
