@@ -3,7 +3,7 @@
 ## 1. <문제 정의>
 - **문제이름**: 가짜 동전 찾기
 - **문제설명**: 주어진 동전 더미 속 가벼운 가짜 동전 1개가 들어 있다. 양팔 저울을 통해 찾아라
-- **문제예시** : 다음 그림과 같은 동전들 속에 가짜 동전이 1개 들어가 있다.
+- **문제예시** : 다음 그림과 같은 동전들 속에 가짜 동전이 1개 들어가 있다.  
 ![photo](https://3.bp.blogspot.com/-B-GJEFmOm-I/Wmf8Qbh9psI/AAAAAAABJyk/JHD7pAQqxxw6Gc9e80kEQ63qoyHgM9q2wCLcBGAs/s400/money_kasoutsuuka_kusa_shibafu.png)
 
 
