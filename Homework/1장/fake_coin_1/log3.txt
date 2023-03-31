@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <Windows.h>
+
+#define max_coin 1024 // 최대 동전 갯수
+
+int check_sum(int coin[], int a, int b);
+
+int main() {
+    int coin[max_coin] = { 0 };
+    int i = 0;
+    srand(time(NULL));
+
+    // coin[rand() % max_coin] = 1;
+
+    coin[524] = 1;
+
+    printf("%d번이 가짜", check_sum(coin, 0, max_coin));
+    return 0;
+}
+
+int check_sum(int coin[], int a, int b) {
+    if ((b - a) == 1) // 탈출
+        if (coin[a])
+            return a;
+        else
+            return b;
+
+    int sum = 0;
+    int sum_2 = 0;
+
+    
+    for (int i = a; i < b - (2 * ((b - a) / 3)); i++) // 0 ~ 333
+        sum += coin[i];
+    for (int i = b - (2 * ((b - a) / 3)); i < b - ((b - a) / 3); i++) // 333 ~ 666
+        sum_2 += coin[i];
+
+    printf("%d %d %d %d\t%d %d\n", a, b - (2 * ((b - a) / 3)), b - ((b - a) / 3), b, sum, sum_2);
+
+    Sleep(1000);
+    if (sum > sum_2)
+        return check_sum(coin, a, b - (2 * ((b - a) / 3))); 
+    else if (sum < sum_2)
+        return check_sum(coin, b - (2 * ((b - a) / 3)), b - ((b - a) / 3));
+    else
+        return check_sum(coin, b - ((b - a) / 3), b);
+
+    return -1;
+}
