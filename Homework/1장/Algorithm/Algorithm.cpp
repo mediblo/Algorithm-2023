@@ -4,8 +4,28 @@
 
 //test push
 
-// 독 단지 찾기 / 임의의 독이 든 독 단지 ( 1개만 독 ) / 독이든 단지의 번호
+// 독 단지 찾기 / 임의의 독이 든 독 단지 ( 1개만 독 ) / 독이든 단지의 번호 ( 해결 )
+/*
+#define max_subject 16 // 신하 수
 
+int main() {
+    srand(time(NULL));
+
+    int test = rand() % 65535;
+    int cnt = 0;
+
+    printf("%d : ", test);
+    for (int i = max_subject - 1; i >= 0; i--) {
+        if (test >> i & 1) cnt++;
+        printf("%d", test >> i & 1);
+        if (i % 4 == 0)
+            printf(" ");
+    }
+    printf("\n%d명이 죽었습니다.", cnt);
+
+    return 0;
+}
+*/
 // 가짜 동전 / 가짜 동전이 포함된 동전 더미 ( 1개만 가짜 ) / 가짜 동전의 번호 ( 해결 )
 /*
 #define max_coin 1024 // 최대 동전 갯수
