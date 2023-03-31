@@ -31,8 +31,8 @@
 	- 동전 더미 : coin (int []) - 정수 배열
 
 2. **함수 정의**
-- 기능 : 동전 더미와 동전 더미의 처음과 끝을 받아, 재귀함수로 호출하여 가짜 동전을 반환.
-- 프로토타입 : int check_sum(int coin[], int a, int b)
+- **기능** : 동전 더미와 동전 더미의 처음과 끝을 받아, 재귀함수로 호출하여 가짜 동전을 반환.
+- **프로토타입** : int check_sum(int coin[], int a, int b)
 
 3. **테스트 케이스 설계**  
 TC1. 동전 더미를 선언하고 그 안에 가짜 동전을 넣어 위 함수를 호출하여 출력한다.  
@@ -96,5 +96,5 @@ void TC2() {
 ```
 
 ## <코드 저장소 링크>
-정용진 : https://github.com/mediblo/Algorithm-2023/tree/master/Homework/1%EC%9E%A5/find_big_number  
+정용진 : https://github.com/mediblo/Algorithm-2023/tree/master/Homework/1%EC%9E%A5/fake_coin_1  
 이동희 : 몰?루
