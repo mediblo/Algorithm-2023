@@ -78,4 +78,4 @@ void TC2() {
 
 ## <코드 저장소 링크>
 정용진 : https://github.com/mediblo/Algorithm-2023/tree/master/Homework/1%EC%9E%A5/change_machine  
-이동희 : 몰?루
+이동희 : https://github.com/20LDH/algorithm_report/tree/master/%EA%B1%B0%EC%8A%A4%EB%A6%84%EB%8F%88%20%EB%8F%99%EC%A0%84%20%EA%B0%9C
