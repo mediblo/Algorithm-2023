@@ -1,9 +1,9 @@
-# 알고리즘 설계 구현 결과 1: <가장 큰 수 찾기>
+# 알고리즘 설계 구현 결과 1 : <가장 큰 수 찾기>
 
 ## 1. <문제 정의>
 - **문제이름**: 가장 큰 숫자 찾기
 - **문제설명**: 주어진 숫자 (정수) 카드 목록 중 가장 큰 숫자 카드를 찾는다.
-- **문제예시** : 다음 그림과 같은 카드 숫자는 7이다.
+- **문제예시** : 다음 그림과 같은 카드 숫자는 7이다.  
 ![photo](https://1.bp.blogspot.com/-YWPrnvvibVs/WQBAGEyzd2I/AAAAAAABD-g/6YXIUPRRJnctD-NjPzA8_Pf5z7bRLx6NgCLcB/s800/card_spade_07.png)
 
 
@@ -30,10 +30,10 @@
 	- 숫자 목록 : A (int []) - 정수 배열
 
 2. **함수 정의**
-- 기능:정수 배열과 배열의 크기(count) 입력받아 최대 정수 출력
-- 프로토타입: int searchBig(int A[], int cnt) 
+- **기능** : 정수 배열과 배열의 크기(count) 입력받아 최대 정수 출력
+- **프로토타입** : int searchBig(int A[], int cnt) 
 
-3. **테스트 케이스 설계**
+3. **테스트 케이스 설계**  
 TC1. 임의의 숫자로 구성된 정수 배열을 선언하고, 위 함수를 호출하여 최대값을 반환 받아 출력한다.  
 TC2. 임의의 개수로 된 정수 배열을 선언하고 TC1과 동일하게 테스트한다.
 
@@ -75,5 +75,5 @@ void TC2() {
 ```
 
 ## <코드 저장소 링크>
-정용진 : https://github.com/mediblo/Algorithm-2023/tree/master/Homework/1%EC%9E%A5/find_big_number
+정용진 : https://github.com/mediblo/Algorithm-2023/tree/master/Homework/1%EC%9E%A5/find_big_number  
 이동희 : 몰?루
