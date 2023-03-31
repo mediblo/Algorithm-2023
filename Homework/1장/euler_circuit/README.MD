@@ -14,7 +14,7 @@
 
 ## 3. <알고리즘>
 - **명칭**: 한붓 그리기 ( euler_circuit )
-- **입력**: 출발지점과 그 사이의 이어진 길들
+- **입력**: 출발지점, 섬 사이의 이어진 길들
 - **출력**: 움직이는 경로 
 - **처리순서** :
 	1. 맨 처음 출발지점에서 보이는 순서대로 걷는다.
@@ -114,5 +114,5 @@ void TC2() {
 ```
 
 ## <코드 저장소 링크>
-정용진 : https://github.com/mediblo/Algorithm-2023/tree/master/Homework/1%EC%9E%A5/death_pot  
+정용진 : https://github.com/mediblo/Algorithm-2023/tree/master/Homework/1%EC%9E%A5/euler_circuit  
 이동희 : 몰?루
