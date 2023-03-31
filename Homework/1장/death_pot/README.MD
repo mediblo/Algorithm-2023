@@ -75,5 +75,5 @@ void TC2() {
 ```
 
 ## <코드 저장소 링크>
-정용진 : https://github.com/mediblo/Algorithm-2023/tree/master/Homework/1%EC%9E%A5/fake_coin_1  
+정용진 : https://github.com/mediblo/Algorithm-2023/tree/master/Homework/1%EC%9E%A5/death_pot  
 이동희 : 몰?루
