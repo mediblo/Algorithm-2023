@@ -2,7 +2,21 @@
 #include <stdlib.h>
 #include <time.h>
 
-//test push
+// main.c
+// euclid.c / euclid_Resive() / euclid_repeative()
+// test.c
+
+long long euclid(long long a, long long b) {
+    if (b == 0) return a;
+    return euclid(b, a % b);
+}
+
+int main() {
+
+    printf("%lld", euclid(132954323242, 25496412380));
+
+    return 0;
+}
 
 // 독 단지 찾기 / 임의의 독이 든 독 단지 ( 1개만 독 ) / 독이든 단지의 번호 ( 해결 )
 /*
