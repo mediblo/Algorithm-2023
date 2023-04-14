@@ -4,7 +4,7 @@
 
 #include "euclid.h"
 
-// 1부터 100억 사이의 랜덤한 값을 주는 테스트 케이스
+// 1부터 1000억 사이의 랜덤한 값을 주는 테스트 케이스
 void TC() {
 	srand(time(NULL));
 	double start, finish; // 실행시간 체크

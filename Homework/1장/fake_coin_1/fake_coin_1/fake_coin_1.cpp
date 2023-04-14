@@ -8,6 +8,8 @@ int check_sum(int coin[], int a, int b);
 void TC1();
 void TC2();
 
+// 반으로 나누기 전에 나머지 값을 빼고 나눈다. ( Ex : 5 % 2 = 1 , ( 5 - 1 ) - / 2 = 2
+
 int main() {
     srand(time(NULL));
 
@@ -42,7 +44,7 @@ int check_sum(int coin[], int a, int b) {
 void TC1() {
     int coin[max_coin] = { 0 };
 
-    coin[666] = 1;
+    coin[663] = 1;
 
     printf("%d번이 가짜\n", check_sum(coin, 0, max_coin));
 }
