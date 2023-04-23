@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define MAX_SIZE 12
+#define MAX_SIZE 20
 
 int A[MAX_SIZE];
 
@@ -47,7 +47,7 @@ void merge(int left, int right) {
 			else temp[i] = A[b++]; // 오른쪽 넣기
 		}
 
-		for (int i = 0, a=left; i < t_size; i++, a++) A[a] = temp[i];
+		for (int i = 0, a=left; i < t_size; i++, a++) A[a] = temp[i]; // 임시배열에서 진짜 배열로 데이터 옮기기
 
 	}
 }
