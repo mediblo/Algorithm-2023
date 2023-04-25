@@ -1,40 +1,50 @@
-﻿#include <stdio.h>
+﻿#define _CRT_SECURE_NO_WARNINGS
+
+#include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 
-#define MAX_SIZE 20
+#define MAX_SIZE 10
 
-int A[MAX_SIZE];
-
-void merge(int left, int right);
+void merge(int A[], int left, int right);
 
 int main() {
-	srand(time(NULL));
 
-	for (int i = 0; i < MAX_SIZE; i++) A[i] = rand()%100 + 1;
+	FILE* fp = NULL;
+	char num[MAX_SIZE];
+	int A[MAX_SIZE];
+
+	fp = fopen("test.txt", "r");
+	if (fp == NULL) return 0;
+
+	for (int i = 0; i < MAX_SIZE; i++) {
+		fgets(num, MAX_SIZE, fp);
+		A[i] = atoi(num);
+	}
+	fclose(fp);
 
 	for (int i = 0; i < MAX_SIZE; i++) printf("%d ", A[i]);
 	printf("\n");
-
-	merge(0, MAX_SIZE-1);
+	merge(A, 0, MAX_SIZE-1);
 
 
 	printf("\n");
 	for (int i = 0; i < MAX_SIZE; i++) printf("%d ", A[i]);
 	printf("\n");
+
+	
 
 	return 0;
 }
 
-void merge(int left, int right) {
+void merge(int A[], int left, int right) {
 	if (left < right) {
 		int p = (right - left) / 2 + left;
 		int t_size = right - left + 1;
 		int temp[MAX_SIZE+1];
 		int a = left, b = p+1;
 		
-		merge(left, p);
-		merge(p + 1, right);
+		merge(A, left, p);
+		merge(A, p + 1, right);
 
 		for (int i = 0; i < t_size; i++) {
 			

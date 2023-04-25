@@ -1,23 +1,31 @@
-﻿#include <stdio.h>
+﻿#define _CRT_SECURE_NO_WARNINGS
+
+#include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 
-void quick(int left, int right);
+void quick(int A[], int left, int right);
 
-#define MAX_SIZE 20
-
-int A[MAX_SIZE];
+#define MAX_SIZE 10
 
 int main() {
+	int A[MAX_SIZE];
+	char num[MAX_SIZE];
+	FILE* fp = NULL;
 
-	srand(time(NULL));
+	fp = fopen("test.txt", "r");
 
-	for (int i = 0; i < MAX_SIZE; i++) A[i] = rand() % 100 + 1;
+	if (fp == NULL) return 0;
+
+	for (int i = 0; i < MAX_SIZE; i++) {
+		fgets(num, MAX_SIZE, fp);
+		A[i] = atoi(num);
+	}
+	fclose(fp);
 
 	for (int i = 0; i < MAX_SIZE; i++) printf("%d ", A[i]);
 	printf("\n");
 
-	quick(0, MAX_SIZE);
+	quick(A, 0, MAX_SIZE);
 
 	for (int i = 0; i < MAX_SIZE; i++) printf("%d ", A[i]);
 	printf("\n");
@@ -25,7 +33,7 @@ int main() {
 	return 0;
 }
 
-void quick(int left, int right) {
+void quick(int A[], int left, int right) {
 	if( left < right ) {
 		int p = (left + right) / 2;
 
@@ -49,7 +57,7 @@ void quick(int left, int right) {
 			A[right - 1] = temp;
 		}
 
-		quick(left, j); // 왼쪽
-		quick(j+1, right); // 오른쪽
+		quick(A, left, j); // 왼쪽
+		quick(A, j+1, right); // 오른쪽
 	}
 }
