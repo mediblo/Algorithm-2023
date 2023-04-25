@@ -2,7 +2,7 @@
 
 ## 1. <문제 정의>
 - **문제이름**: 병합 정렬
-- **문제설명**: 나눌 수 없을 떄 까지 나눈 다음 합치면서 정렬을 하는 알고리즘
+- **문제설명**: 나눌 수 없을 때 까지 나눈 다음 합치면서 정렬을 하는 알고리즘
 - **문제예시** : 다음 그림은 병합 정렬의 예시이다.
 ![photo](https://gmlwjd9405.github.io/images/algorithm-merge-sort/merge-sort-concepts.png)
 
@@ -38,4 +38,4 @@ TC. 랜덤한 시드값을 받아 위 함수에 넣어서 정렬되는지 확인한다.
 헤더파일은 생략 ( stdio.h, stdlib.h )  
 
 ## <코드 저장소 링크>
-https://github.com/mediblo/Algorithm-2023/tree/master/Homework/Chapter_3/Quick%20Sort
+https://github.com/mediblo/Algorithm-2023/tree/master/Homework/Chapter_3/Merge%20Sort
