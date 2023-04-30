@@ -3,7 +3,7 @@
 ## 1. <문제 정의>
 - **문제이름**: 계산기
 - **문제설명**: 정수 2개를 입력받아 원하는 사칙연산을 실행한다.
-- **문제예시** : 다음 그림은 계산기이다.
+- **문제예시** : 다음 그림은 계산기이다.  
 ![photo](https://i.namu.wiki/i/_i4dszQjFT8YnXRFtyEVUcgXAwmZM5GnhK_y6P2MZKm6s46tky3xLazJ3xB2Q8_33_u5DsBE3yBzlnzpWbyRy8xbA3qb7_rwhKQKJdZLgU1mQTtIeeTsf5gDxv-R01tnqHBAoPbAN6L9DgeVvZcFpA.webp)
 
 ## 2. <알고리즘>
