@@ -13,22 +13,22 @@ int main() {
 	char num[MAX_SIZE];
 	int A[MAX_SIZE];
 
-	fp = fopen("test.txt", "r");
+	fp = fopen("test.txt", "r"); // 파일 불러오기
 	if (fp == NULL) return 0;
 
-	for (int i = 0; i < MAX_SIZE; i++) {
+	for (int i = 0; i < MAX_SIZE; i++) { // 문자열 -> 정수 변환
 		fgets(num, MAX_SIZE, fp);
 		A[i] = atoi(num);
 	}
 	fclose(fp);
 
-	for (int i = 0; i < MAX_SIZE; i++) printf("%d ", A[i]);
+	for (int i = 0; i < MAX_SIZE; i++) printf("%d ", A[i]); // 변경 전
 	printf("\n");
 	merge(A, 0, MAX_SIZE-1);
 
 
 	printf("\n");
-	for (int i = 0; i < MAX_SIZE; i++) printf("%d ", A[i]);
+	for (int i = 0; i < MAX_SIZE; i++) printf("%d ", A[i]); // 변경 후
 	printf("\n");
 
 	
