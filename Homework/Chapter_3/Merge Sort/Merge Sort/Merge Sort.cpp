@@ -2,14 +2,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 
-#define MAX_SIZE 50
+#define MAX_SIZE 10
 
 void merge(int A[], int left, int right);
 
 int main() {
-	/*
+
 	FILE* fp = NULL;
 	char num[MAX_SIZE];
 	int A[MAX_SIZE];
@@ -22,11 +21,6 @@ int main() {
 		A[i] = atoi(num);
 	}
 	fclose(fp);
-	*/
-	srand(time(NULL));
-	int A[MAX_SIZE];
-
-	for (int i = 0; i < MAX_SIZE; i++) A[i] = rand() % 100 + 1;
 
 	for (int i = 0; i < MAX_SIZE; i++) printf("%d ", A[i]); // 변경 전
 	printf("\n");
@@ -48,6 +42,7 @@ void merge(int A[], int left, int right) {
 		int t_size = right - left + 1;
 		int temp[MAX_SIZE+1];
 		int a = left, b = p+1;
+
 		merge(A, left, p);
 		merge(A, p + 1, right);
 
