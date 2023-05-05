@@ -42,7 +42,6 @@ void merge(int A[], int left, int right) {
 		int t_size = right - left + 1;
 		int temp[MAX_SIZE+1];
 		int a = left, b = p+1;
-		
 		merge(A, left, p);
 		merge(A, p + 1, right);
 
@@ -58,6 +57,5 @@ void merge(int A[], int left, int right) {
 		}
 
 		for (int i = 0, a=left; i < t_size; i++, a++) A[a] = temp[i]; // 임시배열에서 진짜 배열로 데이터 옮기기
-
 	}
 }
