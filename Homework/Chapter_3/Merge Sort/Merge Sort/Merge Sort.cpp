@@ -26,12 +26,16 @@ int main() {
 	printf("\n");
 	merge(A, 0, MAX_SIZE-1);
 
-
-	printf("\n");
 	for (int i = 0; i < MAX_SIZE; i++) printf("%d ", A[i]); // 변경 후
 	printf("\n");
 
-	
+	fp = fopen("result.txt", "w");
+	if (fp == NULL) return 0;
+
+	for (int i = 0; i < MAX_SIZE; i++) {
+		fprintf(fp, "%d ", A[i]);
+	}
+	fclose(fp);
 
 	return 0;
 }

@@ -7,7 +7,6 @@ int quick(int A[], int left, int right, int find);
 
 #define MAX_SIZE 10
 
-
 int main() {
 	int ret_num = 4;
 	int ret = 0;
@@ -34,6 +33,15 @@ int main() {
 	printf("\n");
 
 	printf("%d번째 : %d", ret_num, ret);
+
+	fp = fopen("result.txt", "w");
+	if (fp == NULL) return 0;
+
+	for (int i = 0; i < MAX_SIZE; i++) {
+		fprintf(fp, "%d ", A[i]);
+	}
+	fprintf(fp, "\n%d번째 : %d", ret_num, ret);
+	fclose(fp);
 
 	return 0;
 }

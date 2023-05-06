@@ -30,6 +30,14 @@ int main() {
 	for (int i = 0; i < MAX_SIZE; i++) printf("%d ", A[i]);
 	printf("\n");
 
+	fp = fopen("result.txt", "w");
+	if (fp == NULL) return 0;
+
+	for (int i = 0; i < MAX_SIZE; i++) {
+		fprintf(fp, "%d ", A[i]);
+	}
+	fclose(fp);
+
 	return 0;
 }
 
