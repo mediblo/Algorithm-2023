@@ -24,7 +24,7 @@
 
 2. **함수 정의**
 - **기능** : 정수 배열을 받아 왼쪽과 오른쪽으로 나눈 다음에 병합한 후에 정렬된 배열을 출력한다.
-- **프로토타입** : long long int euclidRecursive(long long int a, long long int b)
+- **프로토타입** : void merge(int A[], int left, int right)
 
 3. **테스트 케이스 설계**  
 TC. 랜덤한 시드값을 받아 위 함수에 넣어서 정렬되는지 확인한다.
