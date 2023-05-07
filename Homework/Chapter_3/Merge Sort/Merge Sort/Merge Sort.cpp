@@ -2,7 +2,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 int read_file(int** mp);
 void merge(int* A, int left, int right, int size);

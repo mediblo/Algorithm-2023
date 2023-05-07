@@ -45,34 +45,34 @@
 ## <C코드 구현 결과>
 헤더파일은 생략 ( stdio.h, stdlib.h )  
 ```C
-int quick(int A[], int left, int right, int find) {
+int quick(int* A, int left, int right, int find, int size) {
 	int ret = -1;
 	if (left < right) {
 		int p = (left + right) / 2;
 
 
-		int temp = A[right - 1];
-		A[right - 1] = A[p];
-		A[p] = temp;
+		int temp = *(A + right - 1);
+		*(A + right - 1) = *(A + p);
+		*(A + p) = temp;
 
 		int i, j = left;
 
 		for (i = left; i < right; i++) {
-			if (A[i] < A[right - 1]) { // i번째가 피벗 숫자보다 작을 경우
-				temp = A[j];
-				A[j++] = A[i];
-				A[i] = temp;
+			if (*(A + i) < *(A + right - 1)) { // i번째가 피벗 숫자보다 작을 경우
+				temp = *(A + j);
+				*(A + j++) = *(A + i);
+				*(A + i) = temp;
 			}
 		}
 
 		if (j <= right - 1) {
-			temp = A[j];
-			A[j] = A[right - 1];
-			A[right - 1] = temp;
+			temp = *(A + j);
+			*(A + j) = *(A + right - 1);
+			*(A + right - 1) = temp;
 		}
 
-		if (j + 1 > find) ret = quick(A, left, j, find); // 왼쪽
-		else if (j + 1 < find) ret = quick(A, j + 1, right, find); // 오른쪽
+		if (j + 1 > find) ret = quick(A, left, j, find, size); // 왼쪽
+		else if (j + 1 < find) ret = quick(A, j + 1, right, find, size); // 오른쪽
 		else if (j + 1 == find) return A[find - 1];
 	}
 	return ret;

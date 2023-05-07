@@ -45,32 +45,32 @@ TC. 랜덤한 시드값을 받아 위 함수에 넣어서 정렬되는지 확인한다.
 ## <C코드 구현 결과>
 헤더파일은 생략 ( stdio.h, stdlib.h )  
 ```C
-void quick(int A[], int left, int right) {
-	if( left < right ) {
+void quick(int* A, int left, int right, int size) {
+	if (left < right) {
 		int p = (left + right) / 2;
 
-		int temp = A[right - 1];
-		A[right - 1] = A[p];
-		A[p] = temp;
+		int temp = *(A + right - 1);
+		*(A + right - 1) = *(A + p);
+		*(A + p) = temp;
 
 		int i, j = left;
 
 		for (i = left; i < right; i++) {
-			if (A[i] < A[right-1]) { // i번째가 피벗 숫자보다 작을 경우
-				temp = A[j];
-				A[j++] = A[i];
-				A[i] = temp;
+			if (*(A + i) < *(A + right - 1)) { // i번째가 피벗 숫자보다 작을 경우
+				temp = *(A + j);
+				*(A + j++) = *(A + i);
+				*(A + i) = temp;
 			}
 		}
 
 		if (j <= right - 1) {
-			temp = A[j];
-			A[j] = A[right - 1];
-			A[right - 1] = temp;
+			temp = *(A + j);
+			*(A + j) = *(A + right - 1);
+			*(A + right - 1) = temp;
 		}
 
-		quick(A, left, j); // 왼쪽
-		quick(A, j+1, right); // 오른쪽
+		quick(A, left, j, size); // 왼쪽
+		quick(A, j + 1, right, size); // 오른쪽
 	}
 }
 ```

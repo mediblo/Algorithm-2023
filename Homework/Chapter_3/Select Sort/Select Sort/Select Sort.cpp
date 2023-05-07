@@ -2,7 +2,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 int quick(int* A, int left, int right, int find, int size);
 int read_file(int** mp);

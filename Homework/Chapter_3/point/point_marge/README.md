@@ -49,30 +49,30 @@ TC. 랜덤한 시드값을 받아 위 함수에 넣어서 정렬되는지 확인한다.
 ## <C코드 구현 결과>
 헤더파일은 생략 ( stdio.h, stdlib.h )  
 ```c
-void merge(int A[], int left, int right) {
-	if (left < right) {
-		int p = (right - left) / 2 + left;
-		int t_size = right - left + 1;
-		int temp[MAX_SIZE+1];
-		int a = left, b = p+1;
-		
-		merge(A, left, p);
-		merge(A, p + 1, right);
+void merge(int* A, int left, int right, int size) {
+    if (left < right) {
+        int p = (right - left) / 2 + left;
+        int t_size = right - left + 1;
+        int* temp = (int*)malloc(sizeof(int) * size);
+        int a = left, b = p + 1;
 
-		for (int i = 0; i < t_size; i++) {
-			
-			if (a == p + 1) // 왼쪽 인덱스 다 돌면
-			{
-				temp[i] = A[b++];
-				continue;
-			}
-			if (A[a] < A[b] || b > right) temp[i] = A[a++]; // 왼쪽 넣기
-			else temp[i] = A[b++]; // 오른쪽 넣기
-		}
+        merge(A, left, p, size);
+        merge(A, p + 1, right, size);
 
-		for (int i = 0, a=left; i < t_size; i++, a++) A[a] = temp[i]; // 임시배열에서 진짜 배열로 데이터 옮기기
+        for (int i = 0; i < t_size; i++) {
 
-	}
+            if (a == p + 1) // 왼쪽 인덱스 다 돌면
+            {
+                *(temp + i) = A[b++];
+                continue;
+            }
+            if (*(A + a) < *(A + b) || b > right) *(temp + i) = *(A + a++); // 왼쪽 넣기
+            else *(temp + i) = *(A + b++); // 오른쪽 넣기
+        }
+
+        for (int i = 0, a = left; i < t_size; i++, a++) *(A + a) = *(temp + i); // 임시배열에서 진짜 배열로 데이터 옮기기
+        free(temp);
+    }
 }
 ```
 
