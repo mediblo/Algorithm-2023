@@ -15,7 +15,7 @@ int read_file(point** mp);
 // 직선거리 반환
 double distance(point a, point b) { return sqrt(pow((a.x - b.x), 2.0) + pow((a.y - b.y), 2.0)); }
 // 분할 후 최근접 쌍 찾기
-void merge(point* A, int left, int right, int size);
+void merge(point* A, int left, int right, int size, bool loop);
 // x좌표 기준으로 정렬 ( x좌표 같을 시 y좌표 기준 )
 void quick(point* A, int left, int right);
 // 최솟값 및 최솟값 좌표
@@ -48,7 +48,7 @@ int main() {
     }
     printf("\n\n");
 
-    merge(p, 0, size - 1, size);
+    merge(p, 0, size - 1, size, false);
     free(p);
     printf("%.2f의 거리로 [%d %d]와 [%d %d]의 거리가 제일 적다.", min, min_p[0].x, min_p[0].y, min_p[1].x, min_p[1].y);
 
@@ -78,7 +78,7 @@ int read_file(point** mp) {
     fseek(fp, 0, SEEK_SET); // 갯수 세기
 
 
-    p = (point*)malloc(size * sizeof(point));
+    p = (point*)malloc(size * 2 * sizeof(point));
 
     while (1) {
         fgets(temp, 10, fp);
@@ -132,7 +132,7 @@ void quick(point* A, int left, int right) {
     }
 }
 
-void merge(point* A, int left, int right, int size) {
+void merge(point* A, int left, int right, int size, bool loop) {
     int p_size = right - left + 1;
     point temp[3];
     if (2 == p_size) {
@@ -150,10 +150,10 @@ void merge(point* A, int left, int right, int size) {
         int p = (right - left) / 2 + left;
         point* temp = (point*)malloc(size * sizeof(point));
         int j = 0;
-        int count = 0;
+        bool count = false;
 
-        merge(A, left, p, size);
-        merge(A, p, right, size);
+        merge(A, left, p, size, false);
+        merge(A, p, right, size, false);
 
         int check_l = (A + p)->x - (int)min;
         int check_r = (A + p)->x + (int)min;
@@ -162,7 +162,7 @@ void merge(point* A, int left, int right, int size) {
         for (int i = left; i <= (right == size ? right - 1 : right); i++) if (check_l <= (A + i)->x && (A + i)->x <= check_r) *(temp + j++) = *(A + i);
 
 
-        if (j > 0) {
+        if (j > 0 && loop == false) {
             for (int i = 0; i < j; i++) // 최소점 첫 번째 중복 확인
                 if ((temp + i)->x == min_p[0].x && (temp + i)->y == min_p[0].y) continue;
                 else count++;
@@ -174,7 +174,7 @@ void merge(point* A, int left, int right, int size) {
                 else count++;
             if (j == count) *(temp + j++) = min_p[1];
 
-            merge(temp, 0, j - count, size);
+            merge(temp, 0, j - 1, j, true);
         }
         free(temp);
     }
@@ -189,7 +189,7 @@ void who_min(point temp[], int size) {
         min_p[0] = temp[0];
         min_p[1] = temp[1];
     }
-    else {
+    else if (size == 3) {
         double dis[3] = { 0 }; // 3개의 직선거리 저장
 
         for (int i = 0; i < size; i++) { // 3개의 직선거리 구하기

@@ -52,7 +52,41 @@ TC1. 지속적으로 여러 좌표를 넣어 출력을 확인한다.
 ![photo](https://i.imgur.com/Eij7Iez.png)
 
 ## <C코드 구현 결과>
-헤더파일은 생략 ( stdio.h, stdlib.h )  
+헤더파일은 생략 ( stdio.h, stdlib.h, string.h, math.h )  
+**메인 함수**
+```C
+int main() {
+
+    point* p = (point*)malloc(sizeof(point));
+
+    int size = read_file(&p);
+
+    for (int i = 0; i < size; i++) {
+        if (i == 8) printf("\n");
+        printf("[%d %d] ", (p + i)->x, (p + i)->y);
+    }
+    printf("\n\n");
+
+    quick(p, 0, size);
+
+    for (int i = 0; i < size; i++) {
+        if (i == 8) printf("\n");
+        printf("[%d %d] ", (p + i)->x, (p + i)->y);
+    }
+    printf("\n\n");
+
+    merge(p, 0, size - 1, size, false);
+    free(p);
+    printf("%.2f의 거리로 [%d %d]와 [%d %d]의 거리가 제일 적다.", min, min_p[0].x, min_p[0].y, min_p[1].x, min_p[1].y);
+
+    FILE* fp = fopen("result.txt", "w");
+    if (fp == NULL) return 0;
+    fprintf(fp, "%.2f의 거리로 [%d %d]와 [%d %d]의 거리가 제일 적다.", min, min_p[0].x, min_p[0].y, min_p[1].x, min_p[1].y);
+    fclose(fp);
+        
+    return 0;
+}
+```
 **파일 읽기**
 ```C
 int read_file(point** mp) {
@@ -118,7 +152,7 @@ void quick(point* A, int left, int right) {
 ```
 **병합 정렬**
 ```
-void merge(point* A, int left, int right, int size) {
+void merge(point* A, int left, int right, int size, bool loop) {
     int p_size = right - left + 1;
     point temp[3];
     if (2 == p_size) {
@@ -136,24 +170,31 @@ void merge(point* A, int left, int right, int size) {
         int p = (right - left) / 2 + left;
         point* temp = (point*)malloc(size * sizeof(point));
         int j = 0;
-        int count = 0;
-        merge(A, left, p, size);
-        merge(A, p, right, size);
+        bool count = false;
+
+        merge(A, left, p, size, false);
+        merge(A, p, right, size, false);
+
         int check_l = (A + p)->x - (int)min;
         int check_r = (A + p)->x + (int)min;
+
         // 최솟값 기준으로 중간 영역 확인
         for (int i = left; i <= (right == size ? right - 1 : right); i++) if (check_l <= (A + i)->x && (A + i)->x <= check_r) *(temp + j++) = *(A + i);
-        if (j > 0) {
+
+
+        if (j > 0 && loop == false) {
             for (int i = 0; i < j; i++) // 최소점 첫 번째 중복 확인
                 if ((temp + i)->x == min_p[0].x && (temp + i)->y == min_p[0].y) continue;
                 else count++;
             if (j == count) *(temp + j++) = min_p[0];
+
             count = 0;
             for (int i = 0; i < j; i++) // 최소점 두 번째 중복 확인
                 if ((temp + i)->x == min_p[1].x && (temp + i)->y == min_p[1].y) continue;
                 else count++;
             if (j == count) *(temp + j++) = min_p[1];
-            merge(temp, 0, j - count, size);
+
+            merge(temp, 0, j - 1, j, true);
         }
         free(temp);
     }
