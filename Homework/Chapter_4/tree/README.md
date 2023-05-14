@@ -7,8 +7,31 @@
 ![photo](https://i.imgur.com/6UeCp8t.png)
 
 ## 2. <함수 정의>
-- **기능** : 정렬되지 않은 데이터 값을 정렬하며 원하는 인덱스의 값을 출력한다.
-- **프로토타입** : int quick(int A[], int left, int right, int find)
+- **기능** : 트리 제작
+- **프로토타입** : Node* make_tree()
+- **기능** : 노드 연결
+- **프로토타입** : void link(Node* p, Node* l, Node* r)
+- **기능** : 노드 제작
+- **프로토타입** : Node* createNode(int value)
+- **기능** : 노드 검색
+- **프로토타입** : Node* findNode(Node* n, int value)
+- **기능** : 노드의 왼쪽에 새로운 노드 삽입
+- **프로토타입** : Node* insertLeftNode(Node* where, Node* new_node)
+- **기능** : 노드의 오른쪽에 새로운 노드 삽입
+- **프로토타입** : Node* insertRightNode(Node* where, Node* new_node)
+- **기능** : 모든 동적할당 해제
+- **프로토타입** : void destroy(Node* n)
+- **기능** : 트리 출력
+- **프로토타입** : void print_node(Node* n)
+- **기능** : 트리 전위 순회
+- **프로토타입** : void pre_order(Node* n)
+- **기능** : 트리 중위 순회
+- **프로토타입** : void in_order(Node* n)
+- **기능** : 트리 후위 순회
+- **프로토타입** : void post_order(Node* n)
+- **기능** : 테스트 케이스 불러오기
+- **프로토타입** : void TC()
+
 
 ## <C코드 구현 결과>
 라이브러리 헤더 파일은 생략 ( stdio.h, stdlib.h )  
