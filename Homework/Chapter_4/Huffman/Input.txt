@@ -1,0 +1,7 @@
+A group of researchers at Stanford University and Google have created a miniature RPG-style virtual world similar to The Sims, where 25 characters, controlled by ChatGPT and custom code, live out their lives independently with a high degree of realistic behavior. They wrote about their experiment in a preprint academic paper released on Friday.
+
+FURTHER READING
+OpenAI invites everyone to test ChatGPT, a new AI-powered chatbot-with amusing results
+"Generative agents wake up, cook breakfast, and head to work; artists paint, while authors write; they form opinions, notice each other, and initiate conversations; they remember and reflect on days past as they plan the next day," write the researchers in their paper,  "Generative Agents: Interactive Simulacra of Human Behavior."
+
+To pull this off, the researchers relied heavily on a large language model (LLM) for social interaction, specifically the ChatGPT API. In addition, they created an architecture that simulates minds with memories and experiences, then let the agents loose in the world to interact. And humans can interact with them, too.
