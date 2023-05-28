@@ -9,6 +9,7 @@
 
 #define MAX_SIZE 128
 
+// 문자의 데이터를 저장하여 허프만 트리로 구성할 구조체
 typedef struct _node {
 	char ch;
 	int count;
@@ -18,22 +19,33 @@ typedef struct _node {
 
 hNode* root;
 
+// 허프만 파일로 작성하기 전 문자의 데이터를 이진 데이터와 함께 묶기 위한 구조체
 typedef struct _hcode {
 	char ch;
 	char* code;
 } hCode;
 
+// 허프만 트리 제작하기 위해 빈도수가 적은 A, B를 합쳐 반환
 hNode* make_tree(hNode* A, hNode* B);
-
 // 이하 GPT 공동제작
+
+// 허프만 트리 제작 함수 ( make_tree사용해서 반복적으로 합친 최종 트리를 반환 )
 hNode* huff(hNode* dict, int size);
+// 처음부터 시작하여 L은 0, R은 1로 가서 마지막으로 갈 경우 이진 데이터를 codes에 삽입
 void generate_codes(hNode* node, char* code, int depth, hCode* codes);
+// Input.txt 를 압축하여 huffman.huf으로 내보내는 함수, write_bit, write_code 함수를 사용한다.
 void compress_text(hCode* codes);
+// huffman.huf를 해제하여 Output.txt으로 내보내는 함수, read_bit 함수를 사용한다.
 void decompress_text();
+// 매개변수 bit으로 판단하여 비트를 file에 쓰는 함수
 void write_bit(FILE* file, int bit);
+// 문자를 읽어 그에 맞는 code를 통해 이진 데이터로 쓰는 함수, write_bit를 사용한다.
 void write_code(FILE* file, const char* code);
+// 코드 구조체 메모리 할당 해제
 void free_codes(hCode* codes, int size);
+// 노드 구조체 메모리 할당 해제
 void free_tree(hNode* node);
+// 비트를 읽어서 문자로 치환하는 함수
 int read_bit(FILE* file);
 
 int main() {
@@ -45,18 +57,22 @@ int main() {
 	root = NULL;
 	hCode code[MAX_SIZE] = { { NULL } };
 
+	// code 구조체 초기화
 	for (int i = 0; i < MAX_SIZE; i++) {
 		code[i].ch = '\0';
 		code[i].code = NULL;
 	}
 
+	// Input.txt 파일 열기
 	if ((fp = fopen("Input.txt", "r")) == NULL) return 0;
 
+	// 문자 빈도수 카운트
 	int c;
 	while ((c = fgetc(fp)) != EOF) {
 		count[c]++;
 	} fclose(fp);
 
+	// 문자 데이터를 노드 구조체 데이터로 치환
 	for (int i = 0; i < MAX_SIZE; i++) {
 		if (count[i] > 0) {
 			dict[size].ch = (char)i;
@@ -73,15 +89,18 @@ int main() {
 			fprintf(fp, "%c\t%d\n", dict[i].ch, dict[i].count);
 	fclose(fp);
 
+	// 허프만 제작
 	root = huff(dict, size);
 
+	// 허프만 트리를 사용해서 문자에 코드 데이터 삽입
 	char cg[MAX_SIZE] = "";
 	generate_codes(root, cg, 0, code);
 
+	// 압축 및 해제
 	compress_text(code);
 	decompress_text();
 
-	// Step 5: Free allocated memory
+	// 동적 메모리 할당 전부 해제
 	free_tree(root);
 	free_codes(code, size);
 
@@ -108,7 +127,7 @@ hNode* huff(hNode* dict, int size) {
 		int min1 = 0;
 		int min2 = 1;
 
-		// Find two nodes with minimum counts
+		// 최솟값 2개 찾기
 		if (dict[min2].count < dict[min1].count) {
 			int tempIndex = min1;
 			min1 = min2;
@@ -125,7 +144,7 @@ hNode* huff(hNode* dict, int size) {
 			}
 		}
 
-		// Create new node and update dictionary
+		// 약한 복사를 위해 노드 2개 생성
 		hNode* A = (hNode*)malloc(sizeof(hNode));
 		memcpy(A, &dict[min1], sizeof(hNode));
 		hNode* B = (hNode*)malloc(sizeof(hNode));
@@ -133,6 +152,7 @@ hNode* huff(hNode* dict, int size) {
 
 		temp = make_tree(A, B);
 
+		// 강한 복사를 하면 아래 2줄로 인하여 트리가 꼬이게 됨
 		dict[min1] = *temp;
 		dict[min2] = dict[--size];
 
@@ -143,34 +163,34 @@ hNode* huff(hNode* dict, int size) {
 }
 
 void generate_codes(hNode* node, char* code, int depth, hCode* codes) {
-	if (node->left == NULL && node->right == NULL) {
+	if (node->left == NULL && node->right == NULL) { // 리프 노드일 경우 코드 저장
 		code[depth] = '\0';
 		codes[node->ch].ch = node->ch;
 		codes[node->ch].code = strdup(code);
 	}
 	else {
-		code[depth] = '0';
+		code[depth] = '0'; // 왼쪽
 		if (node->left != NULL) generate_codes(node->left, code, depth + 1, codes);
 
-		code[depth] = '1';
+		code[depth] = '1'; // 오른쪽
 		if (node->right != NULL) generate_codes(node->right, code, depth + 1, codes);
 	}
 }
 
 void compress_text(hCode* codes) {
-	FILE* input = fopen("Input.txt", "r");
-	if (input == NULL) {
+	FILE* input, * output;
+	// 파일 열기
+	if ((input = fopen("Input.txt", "r")) == NULL) {
 		printf("Error opening input file.\n");
 		return;
 	}
-
-	FILE* output = fopen("huffman.huf", "wb");
-	if (output == NULL) {
+	if ((output = fopen("huffman.huf", "wb")) == NULL) {
 		printf("Error opening output file.\n");
 		fclose(input);
 		return;
 	}
 
+	// 문자마다 write_code() 호출
 	int c;
 	while ((c = fgetc(input)) != EOF) {
 		write_code(output, codes[c].code);
@@ -181,14 +201,13 @@ void compress_text(hCode* codes) {
 }
 
 void decompress_text() {
-	FILE* input = fopen("huffman.huf", "rb");
-	if (input == NULL) {
+	FILE* input, * output;
+	// 파일 열기
+	if ((input = fopen("huffman.huf", "rb")) == NULL) {
 		printf("Error opening input file.\n");
 		return;
 	}
-
-	FILE* output = fopen("output.txt", "w");
-	if (output == NULL) {
+	if ((output = fopen("output.txt", "w")) == NULL) {
 		printf("Error opening output file.\n");
 		fclose(input);
 		return;
@@ -198,13 +217,11 @@ void decompress_text() {
 	int bit;
 
 	while ((bit = read_bit(input)) != -1) {
-		if (bit == 0) {
-			node = node->left;
-		}
-		else {
-			node = node->right;
-		}
+		// bit 읽으면서 내려가기
+		if (bit == 0) node = node->left;
+		else node = node->right;
 
+		// 리프 노드 일 때 문자 출력
 		if (node->left == NULL && node->right == NULL) {
 			fputc(node->ch, output);
 			node = root;
@@ -219,9 +236,11 @@ void write_bit(FILE* file, int bit) {
 	static int buffer = 0;
 	static int count = 0;
 
+	// 버퍼에 비트 데이터를 저장
 	buffer |= (bit << (7 - count));
 	count++;
 
+	// 다 읽었으면 출력 후 버퍼 초기화
 	if (count == 8) {
 		fputc(buffer, file);
 		buffer = 0;
@@ -230,6 +249,7 @@ void write_bit(FILE* file, int bit) {
 }
 
 void write_code(FILE* file, const char* code) {
+	// 비트 데이터 읽기
 	for (int i = 0; code[i] != '\0'; i++) {
 		int bit = (code[i] == '0') ? 0 : 1;
 		write_bit(file, bit);
@@ -237,12 +257,14 @@ void write_code(FILE* file, const char* code) {
 }
 
 void free_codes(hCode* codes, int size) {
+	// 메모리 할당 해제
 	for (int i = 0; i < size; i++) {
 		free(codes[i].code);
 	}
 }
 
 void free_tree(hNode* node) {
+	// 메모리 할당 해제
 	if (node == NULL) {
 		return;
 	}
@@ -255,7 +277,8 @@ void free_tree(hNode* node) {
 int read_bit(FILE* file) {
 	static int buffer = 0;
 	static int count = 0;
-
+	// 비트 읽고 파일의 끝이 되면 -1 출력
+	// decompress_text() 함수와 같이 해석하기 바람
 	if (count == 0) {
 		buffer = fgetc(file);
 		if (buffer == EOF) {
