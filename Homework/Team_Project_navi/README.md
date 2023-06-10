@@ -1,70 +1,44 @@
-#define _CRT_SECURE_NO_WARNINGS
-#pragma once
+# 알고리즘 설계 구현 결과 : <학교 네비게이션>
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <limits.h>
-#include <string.h>
-#include <curses.h>
+## 1. <프로젝트 정의>
+- **프로젝트 이름**: 학교 네비게이션
+- **프로젝트 설명**: 학교에 있는 건물들에 대한 최선의 길을 알려준다.
+- **학교 사진**  
+![photo](https://i.imgur.com/aCKSImu.png)
+## 2. <알고리즘>
+- **명칭**: 다익스트라
+- **입력**: 건물들 가중치
+- **출력**: 최적의 가중치
+---
+- **명칭** : 순차탐색
+- **입력** : 건물들 빈도수
+- **출력** : 많이 불린 건물들
 
-// PDCurses 준비
-void init_pcr();
-// 데이터 불러오기
-void load_data();
-// 로고 출력
-void print_navi();
-// 시작 메뉴 출력
-int menu();
-// 출발점, 도착점
-void set_building();
-// 변경
-void change_building();
-// 변경점 출력
-void print_change_graph(int start, int finish);
-// 변경 및 저장
-void change_graph(int start, int finish, int new_Value);
-// 최단경로 알고리즘 [ 무석, 정원 ]
-void calculate_distance(int start, int finish);
-// 데이터 저장
-void save_data();
-// 에러 처리
-void error(int code);
-// 빠른 시작
-void fast_start();
+## 3. <코드 설계>
+1. **자료 구조 정의**
+	- 그래프 : (struct[][]) - Graph
+      - 연결 여부 : (int) - connected
+      - 거리 : (int) - distance
+	- 빈도수 : (int[][]) - fast_data
 
-// void print_map();
+2. **함수 정의**
+-  **PDCurses 준비** void init_pcr();
+- **데이터 불러오기** void load_data();
+- **로고 출력** void print_navi();
+- **시작 메뉴 출력** int menu();
+- **출발점, 도착점** void set_building();
+- **변경** void change_building();
+- **변경점 출력** void print_change_graph(int start, int finish);
+- **변경 및 저장** void change_graph(int start, int finish, int new_Value);
+- **최단경로 알고리즘 [ 무석, 정원 ]** void calculate_distance(int start, int finish);
+- **데이터 저장** void save_data();
+- **에러 처리** void error(int code);
+- **빠른 시작** void fast_start();
 
-#define INFINITY INT_MAX
 
-// 건물 간의 연결 정보와 거리 정보를 그래프로 표현 [ 종모 ]
-typedef struct {
-    int connected;  // 건물 연결 여부
-    int distance;   // 거리
-} Graph;
-
-/* 초기 가중치 값 [ 종모 ]
-Graph buildings[14][14] = {
-    {{ 0, 0 }, { 1, 2 }, { 1, 3 }, { 1, 4 }, { 1, 5 }, { 1, 6 }, { 1, 7 }, { 1, 8 }, { 1, 9 }, { 1, 10 }, { 1, 11 }, { 1, 12 }, { 1, 13 }, { 1, 14 }},
-    {{ 1, 2 }, { 0, 0 }, { 1, 4 }, { 1, 6 }, { 1, 8 }, { 1, 10 }, { 1, 12 }, { 1, 14 }, { 1, 16 }, { 1, 18 }, { 1, 20 }, { 1, 22 }, { 1, 24 }, { 1, 26 }},
-    {{ 1, 3 }, { 1, 4 }, { 0, 0 }, { 1, 5 }, { 1, 10 }, { 1, 15 }, { 1, 20 }, { 1, 25 }, { 1, 30 }, { 1, 35 }, { 1, 40 }, { 1, 45 }, { 1, 50 }, { 1, 55 }},
-    {{ 1, 4 }, { 1, 6 }, { 1, 5 }, { 0, 0 }, { 1, 7 }, { 1, 14 }, { 1, 21 }, { 1, 28 }, { 1, 35 }, { 1, 42 }, { 1, 49 }, { 1, 56 }, { 1, 63 }, { 1, 70 }},
-    {{ 1, 5 }, { 1, 8 }, { 1, 10 }, { 1, 7 }, { 0, 0 }, { 1, 9 }, { 1, 18 }, { 1, 27 }, { 1, 36 }, { 1, 45 }, { 1, 54 }, { 1, 63 }, { 1, 72 }, { 1, 81 }},
-    {{ 1, 6 }, { 1, 10 }, { 1, 15 }, { 1, 14 }, { 1, 9 }, { 0, 0 }, { 1, 11 }, { 1, 22 }, { 1, 33 }, { 1, 44 }, { 1, 55 }, { 1, 66 }, { 1, 77 }, { 1, 88 }},
-    {{ 1, 7 }, { 1, 12 }, { 1, 20 }, { 1, 21 }, { 1, 18 }, { 1, 11 }, { 0, 0 }, { 1, 13 }, { 1, 26 }, { 1, 39 }, { 1, 52 }, { 1, 65 }, { 1, 78 }, { 1, 91 }},
-    {{ 1, 8 }, { 1, 14 }, { 1, 25 }, { 1, 28 }, { 1, 27 }, { 1, 22 }, { 1, 13 }, { 0, 0 }, { 1, 15 }, { 1, 30 }, { 1, 45 }, { 1, 60 }, { 1, 75 }, { 1, 90 }},
-    {{ 1, 9 }, { 1, 16 }, { 1, 30 }, { 1, 35 }, { 1, 36 }, { 1, 33 }, { 1, 26 }, { 1, 15 }, { 0, 0 }, { 1, 17 }, { 1, 34 }, { 1, 51 }, { 1, 68 }, { 1, 85 }},
-    {{ 1, 10 }, { 1, 18 }, { 1, 35 }, { 1, 42 }, { 1, 45 }, { 1, 44 }, { 1, 39 }, { 1, 30 }, { 1, 17 }, { 0, 0 }, { 1, 19 }, { 1, 38 }, { 1, 57 }, { 1, 76 }},
-    {{ 1, 11 }, { 1, 20 }, { 1, 40 }, { 1, 49 }, { 1, 54 }, { 1, 55 }, { 1, 52 }, { 1, 45 }, { 1, 34 }, { 1, 19 }, { 0, 0 }, { 1, 21 }, { 1, 42 }, { 1, 63 }},
-    {{ 1, 12 }, { 1, 22 }, { 1, 45 }, { 1, 56 }, { 1, 63 }, { 1, 66 }, { 1, 65 }, { 1, 60 }, { 1, 51 }, { 1, 38 }, { 1, 21 }, { 0, 0 }, { 1, 23 }, { 1, 46 }},
-    {{ 1, 13 }, { 1, 24 }, { 1, 50 }, { 1, 63 }, { 1, 72 }, { 1, 77 }, { 1, 78 }, { 1, 75 }, { 1, 68 }, { 1, 57 }, { 1, 42 }, { 1, 23 }, { 0, 0 }, { 1, 25 }},
-    {{ 1, 14 }, { 1, 26 }, { 1, 55 }, { 1, 70 }, { 1, 81 }, { 1, 88 }, { 1, 91 }, { 1, 90 }, { 1, 85 }, { 1, 76 }, { 1, 63 }, { 1, 46 }, { 1, 25 }, { 0, 0 }}
-};
-*/
-
-// 초기 데이터 변수
-Graph buildings[14][14] = { 0 };
-int fast_data[14][14] = { 0 };
-
+## <C코드 구현 결과>
+헤더파일은 생략 ( stdio.h, string.h, stdlib.h, limits.h, curses.h [ PDCurses ] ) 
+```c
 int main() {
     init_pcr();
     load_data();
@@ -653,62 +627,7 @@ void fast_start() {
     }
     calculate_distance(start, finish);
 }
+```
 
-/* 미구현 함수
-void print_map() {
-    int x = 10;
-    int y = 11;
-
-    // 0 = Stop, 1 = Up, 2 = Down, 3 = Left, 4 = Right
-    int sToF[14][14][14] = {{0}, {4,4,4,1,0}};
-
-    mvprintw(y, x + 0, "*");
-    mvprintw(y, x + 59, "*");
-    mvprintw(y + 16, x + 59, "*");
-    mvprintw(y + 16, x, "*");
-
-    for (int i = 1; i < 59; i++) mvprintw(y + 0, x + i, "-"); // 위
-    for (int i = 1; i < 16; i++) mvprintw(y + i, x, "|"); // 왼
-    for (int i = 1; i < 59; i++) mvprintw(y + 16, x + i, "-"); // 아래
-    for (int i = 1; i < 16; i++) mvprintw(y + i, x + 59, "|"); // 오른
-
-    mvprintw(y + 14, x + 18, "@"); // 목민관
-    mvprintw(y + 12, x + 22, "@"); // 제1자
-    mvprintw(y + 11, x + 14, "@"); // 인문사회
-    mvprintw(y + 10, x + 19, "@"); // 제1학
-    mvprintw(y + 12, x + 16, "@"); // 제2학
-    mvprintw(y + 10, x + 12, "@"); // 예술관
-    mvprintw(y + 8, x + 14, "@"); // 사범관
-    mvprintw(y + 9, x + 26, "@"); // 바이오
-    mvprintw(y + 6, x + 30, "@"); // 제2자
-    mvprintw(y + 7, x + 22, "@"); // 행정
-    mvprintw(y + 5, x + 18, "@"); // 미창관
-    mvprintw(y + 3, x + 18, "@"); // 체육관
-    mvprintw(y + 4, x + 23, "@"); // 글로벌관
-    mvprintw(y + 1, x + 20, "@"); // 비전관
-
-
-    x += 18;
-    y += 14;
-    for (int i = 0; sToF[0][1][i] == 0; i++) {
-        switch (sToF[0][1][i]) {
-            case 1:
-                y -= 1;
-                break;
-            case 2:
-                y += 1;
-            case 3:
-                x -= 1;
-            case 4:
-                x += 1;
-        }
-
-        mvprintw(y, x, "@");
-        refresh();
-        getch();
-    }
-
-    refresh();
-    getch();
-}
-*/
+## <코드 저장소 링크>
+https://github.com/mediblo/Algorithm-2023/tree/master/Homework/Team_Project_navi
