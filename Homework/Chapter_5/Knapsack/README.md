@@ -25,6 +25,17 @@ typedef struct {
 	int price;
 } item;
 ```
+
+item.txt
+```
+1 5 7
+2 1 6
+3 3 9
+4 2 5
+5 6 8
+6 1 9
+```
+
 Knapsack ÇÔ¼ö
 ```C
 	int* rst = (int*)malloc(sizeof(int) * (bag + 1) * (count + 1));
